@@ -1,31 +1,15 @@
 // Create web sever
 const express = require('express');
-const router = express.Router();
-const Comment = require('../models/Comment');
-const Post = require('../models/Post');
-const User = require('../models/User');
-const { check, validationResult } = require('express-validator');
-const auth = require('../middleware/auth');
+const app = express();
 
-// @route POST api/comments
-// @desc Create a new comment
-// @access Private
-router.post('/', [auth, [
-    check('content', 'Content is required').not().isEmpty(),
-    check('post', 'Post is required').not().isEmpty()
-]], async (req, res) => {
-    const errors = validationResult(req);
-    if(!errors.isEmpty()) {
-        return res.status(400).json({
-            message: errors.array()
-        });
-    }
+// Create a route
+app.get('/comments', (req, res) => {
+    res.send('This is a GET request');
+});
 
-    try {
-                const user = await User.findById(req.user.id);
-                // Add your logic here
-            } catch (err) {
-                console.error(err.message);
-                res.status(500).send('Server Error');
-            }
-        });
+// Start the server
+app.listen(3000, () => {
+    console.log('Server is running on http://localhost:3000/comments');
+});
+
+// Run the server with node comments.js
