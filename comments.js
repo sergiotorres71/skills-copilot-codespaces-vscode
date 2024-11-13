@@ -22,4 +22,10 @@ router.post('/', [auth, [
     }
 
     try {
-        const user = await User.findById(req.user.id)
+                const user = await User.findById(req.user.id);
+                // Add your logic here
+            } catch (err) {
+                console.error(err.message);
+                res.status(500).send('Server Error');
+            }
+        });
